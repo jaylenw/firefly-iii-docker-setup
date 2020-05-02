@@ -1,4 +1,4 @@
 .env
-.frefly-env
+.firefly-env
 .db-env
 .watchtower-env
