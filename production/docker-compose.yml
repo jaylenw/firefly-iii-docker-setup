@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  fireflyiii-prod:
+    image: jc5x/firefly-iii:latest
+    volumes:
+      - firefly_iii_export_prod:/var/www/firefly-iii/storage/export
+      - firefly_iii_upload_prod:/var/www/firefly-iii/storage/upload
+    env_file: .firefly-env
+    ports:
+      - 8080:80
+    depends_on:
+      - fireflyiiidb-prod
+    restart: unless-stopped
+  
+  fireflyiiidb-prod:
+    image: postgres:10-alpine
+    env_file: .db-env
+    volumes:
+      - firefly_iii_db_prod:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+    firefly_iii_export_prod:
+    firefly_iii_upload_prod:
+    firefly_iii_db_prod:
