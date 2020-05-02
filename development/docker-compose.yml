@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   fireflyiii-dev:
-    image: jc5x/firefly-iii:latest
+    image: jc5x/firefly-iii:develop
     volumes:
       - firefly_iii_export_dev:/var/www/firefly-iii/storage/export
       - firefly_iii_upload_dev:/var/www/firefly-iii/storage/upload
@@ -19,16 +19,17 @@ services:
     volumes:
       - firefly_iii_db_dev:/var/lib/postgresql/data
     restart: unless-stopped
+  
   watchtower:
     image: containrrr/watchtower
     volumes:
         - /var/run/docker.sock:/var/run/docker.sock
     # check for new images every 604800 secs (a week) and only watch watchtower,
-    # fireflyiii-dev, and fireflyiiidb-dev containers.
+    # and fireflyiii develop container where the tag of the image is "develop".
     # remove old images after updating watched containers
     # this compose file will have the one watchtower image to control all of the various
     # related firefly containers
-    command: watchtower fireflyiii-dev fireflyiiidb-dev --interval 604800 --cleanup
+    command: watchtower firefly-iii --interval 604800 --cleanup
     # provide slack web hook url to get notifications when the containers update
     env_file: .watchtower-env
     restart: unless-stopped # restarts container unless we explicitly stop it
