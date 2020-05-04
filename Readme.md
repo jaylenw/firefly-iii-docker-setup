@@ -1,6 +1,6 @@
 # My Firefly-iii Docker Setup
 
-**Goal**: Have a development and production deployment environments setup
+**Goal**: Have development and production deployment environments setup
 with docker-compose for the [Firefly-iii](https://www.firefly-iii.org/) application. Have the development environment support automatic updates using
 [Watchtower](https://containrrr.github.io/watchtower/).
 
@@ -9,7 +9,7 @@ to send out emails using [Mailgun](https://www.mailgun.com/).
 
 ## Local Testing
 
-To get started with this, it is best that you are able to get Fire-fly-iii running locally
+To get started with this, it is best that you are able to get Firefly-iii running locally
 first before deploying it to your deployment environment (ex. your server).
 
 This repository has a `development` and a `production` folder with each folder corresponding
@@ -154,7 +154,7 @@ server {
         proxy_set_header X-Forwarded-Server $host;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-	    proxy_set_header Host $host;
+        proxy_set_header Host $host;
         client_max_body_size 64M;
     }
 }
