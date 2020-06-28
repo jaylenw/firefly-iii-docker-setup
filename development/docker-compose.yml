@@ -8,7 +8,7 @@ services:
       - firefly_iii_upload_dev:/var/www/firefly-iii/storage/upload
     env_file: .firefly-env
     ports:
-      - 8081:80
+      - 8081:8080
     depends_on:
       - fireflyiiidb-dev
     restart: unless-stopped
@@ -24,12 +24,12 @@ services:
     image: containrrr/watchtower
     volumes:
         - /var/run/docker.sock:/var/run/docker.sock
-    # check for new images every 604800 secs (a week) and only watch watchtower,
+    # check for new images every Monday at 9:00 UTC and only watch watchtower,
     # and fireflyiii develop container where the tag of the image is "develop".
     # remove old images after updating watched containers
     # this compose file will have the one watchtower image to control all of the various
     # related firefly containers
-    command: watchtower firefly-iii --interval 604800 --cleanup
+    command: watchtower firefly-iii-dev --schedule "0 9 * * 1" --cleanup
     # provide slack web hook url to get notifications when the containers update
     env_file: .watchtower-env
     restart: unless-stopped # restarts container unless we explicitly stop it
