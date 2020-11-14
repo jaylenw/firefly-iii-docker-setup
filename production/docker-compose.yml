@@ -4,11 +4,10 @@ services:
   fireflyiii-prod:
     image: jc5x/firefly-iii:latest
     volumes:
-      - firefly_iii_export_prod:/var/www/firefly-iii/storage/export
-      - firefly_iii_upload_prod:/var/www/firefly-iii/storage/upload
+      - firefly_iii_upload_prod:/var/www/html/storage/upload
     env_file: .firefly-env
     ports:
-      - 8080:80
+      - 8080:8080
     depends_on:
       - fireflyiiidb-prod
     restart: unless-stopped
@@ -21,6 +20,5 @@ services:
     restart: unless-stopped
 
 volumes:
-    firefly_iii_export_prod:
     firefly_iii_upload_prod:
     firefly_iii_db_prod:
