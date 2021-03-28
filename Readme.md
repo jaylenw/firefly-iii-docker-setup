@@ -94,9 +94,12 @@ MAILGUN_ENDPOINT=api.mailgun.net # this is fine if you are in the U.S.
 
 #### .watchtower-env
 
+Below is an example of how I have configured Watchtower to send notifications with Rocket Chat. Please refer to Watchtower's
+documentation [here](https://containrrr.dev/watchtower/notifications/) to see how to configure notifications of your choice.
+
 ```
-WATCHTOWER_NOTIFICATIONS=slack
-WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL=<your-slack-hook-here> # btw, I am using rocket.chat :)
+WATCHTOWER_NOTIFICATIONS=shoutrrr
+WATCHTOWER_NOTIFICATION_URL=rocketchat://myserver.example.com/token/channel
 ```
 
 4.) Once you have the environment settings set for local `development` make the necessary changes for local `production`.
