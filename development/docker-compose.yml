@@ -4,8 +4,7 @@ services:
   fireflyiii-dev:
     image: jc5x/firefly-iii:develop
     volumes:
-      - firefly_iii_export_dev:/var/www/firefly-iii/storage/export
-      - firefly_iii_upload_dev:/var/www/firefly-iii/storage/upload
+      - firefly_iii_upload_dev:/var/www/html/storage/upload
     env_file: .firefly-env
     ports:
       - 8081:8080
@@ -35,6 +34,5 @@ services:
     restart: unless-stopped # restarts container unless we explicitly stop it
 
 volumes:
-   firefly_iii_export_dev:
    firefly_iii_upload_dev:
    firefly_iii_db_dev:
