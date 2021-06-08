@@ -29,7 +29,7 @@ The `docker-compose.yml` was used as the basis found in the files in the reposit
 
 3.) Create the necessary environment files Docker expects.
 
-The `development` folder requires the files `.db-env`, `.firefly-env`, and `.watchtower-env`.
+The `development` folder requires the files `.db-env`, `.firefly-env`, `.pgadmin-env`, and `.watchtower-env`.
 The `production` folder requires the files `.db-env` and `.firefly-env`.
 
 The directory structure should look like this:
