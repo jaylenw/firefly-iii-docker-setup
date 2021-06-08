@@ -179,5 +179,20 @@ server {
 allow the applications to run in the background. Also note, Docker will restart the containers unless
 they were explicitly told to shutdown (it will survive server reboots).
 
+5.) Optional - Firefly-iii supports recurring transactions and automatic budgeting. You may want to setup a daily cron job
+so Firefly-iii may carry out these tasks. Find more information about it [here](https://docs.firefly-iii.org/firefly-iii/advanced-installation/cron/).
+
+Below is the contents of a script that is compatible with this setup to have Firefly-iii carry out daily tasks. Take the
+content below and add it to a bash script. Then create a cron job on your host to call your script. Modify as needed to
+match your Docker Compose service and container if you have changed them to something else in your `docker-compose.yml` file.
+
+```bash
+#!/bin/bash
+
+# background info, https://docs.firefly-iii.org/advanced-installation/cron#call-the-cron-job-from-the-host-system
+# host will call the container so that we can have recurring transactions
+docker exec --user www-data production_fireflyiii-prod_1 /usr/local/bin/php /var/www/html/artisan firefly-iii:cron
+```
+
 ----------------------------------------------------------------------------------------------------------
 Made with ♥ in Los Angeles CA.
