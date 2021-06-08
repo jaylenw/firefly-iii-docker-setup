@@ -19,6 +19,13 @@ services:
       - firefly_iii_db_dev:/var/lib/postgresql/data
     restart: unless-stopped
   
+  # uncomment below to use
+  # pgadmin:
+  #   image: dpage/pgadmin4:latest
+  #   ports:
+  #     - 3000:80
+  #   env_file: .pgadmin-env
+
   watchtower:
     image: containrrr/watchtower:amd64-1.1.6
     volumes:

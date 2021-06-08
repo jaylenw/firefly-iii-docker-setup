@@ -29,7 +29,7 @@ The `docker-compose.yml` was used as the basis found in the files in the reposit
 
 3.) Create the necessary environment files Docker expects.
 
-The `development` folder requires the files `.db-env`, `.firefly-env`, and `.watchtower-env`.
+The `development` folder requires the files `.db-env`, `.firefly-env`, `.pgadmin-env`, and `.watchtower-env`.
 The `production` folder requires the files `.db-env` and `.firefly-env`.
 
 The directory structure should look like this:
@@ -38,6 +38,7 @@ The directory structure should look like this:
 development
 ---.db-env
 ---.firefly-env
+---.pdadmin-env
 ---.watchtower-env
 ---docker-compose.yml
 production
@@ -85,11 +86,21 @@ DB_DATABASE=firefly
 DB_USERNAME=<user> # same user that is set in `.db-env`
 DB_PASSWORD=<password> # same password that is set in `.db-env`
 
-MAIL_DRIVER=mailgun # configured this because I am using Mailgun for emails
+MAIL_MAILER=mailgun # configured this because I am using Mailgun for emails
 MAIL_FROM=<from-email-address> # this is important, set this using your verified Mailgun domain, example money@firefly.mydomain.com
 MAILGUN_DOMAIN=<verified-mailgun-domain> # this is important, set your verified Mailgun domain, example firefly.mydomain.com
 MAILGUN_SECRET=<your-mailgun-api-key>
 MAILGUN_ENDPOINT=api.mailgun.net # this is fine if you are in the U.S.
+```
+
+### .pgadmin-env
+
+Below is an example of how you can setup the credentials to login to PGAdmin for database testing locally for the development environment. By default, PGAdmin is commented
+out in the development's `docker-composer.yml` file.
+
+```
+PGADMIN_DEFAULT_EMAIL=<your-email-address>
+PGADMIN_DEFAULT_PASSWORD=<some-random-password>
 ```
 
 #### .watchtower-env
@@ -167,6 +178,21 @@ server {
 4.) Start the two environments by running the following command, `docker-compose up -d` in each folder. This will
 allow the applications to run in the background. Also note, Docker will restart the containers unless
 they were explicitly told to shutdown (it will survive server reboots).
+
+5.) Optional - Firefly-iii supports recurring transactions and automatic budgeting. You may want to setup a daily cron job
+so Firefly-iii may carry out these tasks. Find more information about it [here](https://docs.firefly-iii.org/firefly-iii/advanced-installation/cron/).
+
+Below is the contents of a script that is compatible with this setup to have Firefly-iii carry out daily tasks. Take the
+content below and add it to a bash script. Then create a cron job on your host to call your script. Modify as needed to
+match your Docker Compose service and container if you have changed them to something else in your `docker-compose.yml` file.
+
+```bash
+#!/bin/bash
+
+# background info, https://docs.firefly-iii.org/advanced-installation/cron#call-the-cron-job-from-the-host-system
+# host will call the container so that we can have recurring transactions
+docker exec --user www-data production_fireflyiii-prod_1 /usr/local/bin/php /var/www/html/artisan firefly-iii:cron
+```
 
 ----------------------------------------------------------------------------------------------------------
 Made with ♥ in Los Angeles CA.

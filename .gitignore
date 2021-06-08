@@ -2,3 +2,4 @@
 .firefly-env
 .db-env
 .watchtower-env
+.pgadmin-env
