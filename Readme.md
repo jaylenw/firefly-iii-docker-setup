@@ -38,6 +38,7 @@ The directory structure should look like this:
 development
 ---.db-env
 ---.firefly-env
+---.pdadmin-env
 ---.watchtower-env
 ---docker-compose.yml
 production
@@ -85,11 +86,21 @@ DB_DATABASE=firefly
 DB_USERNAME=<user> # same user that is set in `.db-env`
 DB_PASSWORD=<password> # same password that is set in `.db-env`
 
-MAIL_DRIVER=mailgun # configured this because I am using Mailgun for emails
+MAIL_MAILER=mailgun # configured this because I am using Mailgun for emails
 MAIL_FROM=<from-email-address> # this is important, set this using your verified Mailgun domain, example money@firefly.mydomain.com
 MAILGUN_DOMAIN=<verified-mailgun-domain> # this is important, set your verified Mailgun domain, example firefly.mydomain.com
 MAILGUN_SECRET=<your-mailgun-api-key>
 MAILGUN_ENDPOINT=api.mailgun.net # this is fine if you are in the U.S.
+```
+
+### .pgadmin-env
+
+Below is an example of how you can setup the credentials to login to PGAdmin for database testing locally for the development environment. By default, PGAdmin is commented
+out in the development's `docker-composer.yml` file.
+
+```
+PGADMIN_DEFAULT_EMAIL=<your-email-address>
+PGADMIN_DEFAULT_PASSWORD=<some-random-password>
 ```
 
 #### .watchtower-env
