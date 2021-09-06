@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   fireflyiii-dev:
-    image: jc5x/firefly-iii:develop
+    image: fireflyiii/core:develop
     volumes:
       - firefly_iii_upload_dev:/var/www/html/storage/upload
     env_file: .firefly-env
